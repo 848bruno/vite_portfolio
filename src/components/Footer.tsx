@@ -10,7 +10,7 @@ export default function Footer() {
               Bruno Ambale
             </h3>
             <p className="text-gray-300">
-              Full Stack Developer & UI/UX Designer based in San Francisco, CA.
+              Full Stack Developer & UI/UX Designer based in Nairobi, Kenya.
             </p>
           </div>
           <div>
