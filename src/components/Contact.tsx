@@ -1,18 +1,17 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { useState } from 'react';
+import { useForm, ValidationError } from '@formspree/react';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const [state, handleSubmit] = useForm("mldjwdjz"); // Replace with your Formspree form ID
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log(formData);
-  };
+  if (state.succeeded) {
+    return (
+      <div className="text-center py-8 text-green-400">
+        <p className="text-xl">Message sent successfully!</p>
+        <p className="mt-2">I'll get back to you soon.</p>
+      </div>
+    );
+  }
 
   return (
     <section id="contact" className="py-20 bg-[#1a1a2e]/50">
@@ -44,12 +43,17 @@ export default function Contact() {
                 Name
               </label>
               <input
-                type="text"
                 id="name"
+                type="text"
+                name="name"
                 className="w-full px-4 py-2 bg-white/10 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent text-gray-200"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
+              />
+              <ValidationError 
+                prefix="Name" 
+                field="name"
+                errors={state.errors}
+                className="text-red-400 text-sm mt-1"
               />
             </div>
             <div>
@@ -57,12 +61,17 @@ export default function Contact() {
                 Email
               </label>
               <input
-                type="email"
                 id="email"
+                type="email"
+                name="email"
                 className="w-full px-4 py-2 bg-white/10 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent text-gray-200"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
+              />
+              <ValidationError 
+                prefix="Email" 
+                field="email"
+                errors={state.errors}
+                className="text-red-400 text-sm mt-1"
               />
             </div>
             <div>
@@ -71,18 +80,24 @@ export default function Contact() {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={4}
                 className="w-full px-4 py-2 bg-white/10 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent text-gray-200"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 required
-              ></textarea>
+              />
+              <ValidationError 
+                prefix="Message" 
+                field="message"
+                errors={state.errors}
+                className="text-red-400 text-sm mt-1"
+              />
             </div>
             <button
               type="submit"
-              className="w-full bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+              disabled={state.submitting}
+              className="w-full bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
             >
-              Send Message
+              {state.submitting ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         </div>
