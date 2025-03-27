@@ -33,7 +33,7 @@ export default function Contact() {
               </div>
               <div className="flex items-center space-x-4">
                 <MapPin className="text-purple-400" size={24} />
-                <span className="text-gray-300">San Francisco, CA</span>
+                <span className="text-gray-300">Nairobi, Kenya</span>
               </div>
             </div>
           </div>
@@ -103,5 +103,5 @@ export default function Contact() {
         </div>
       </div>
     </section>
-  );
+  ); 
 }
